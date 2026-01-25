@@ -1,0 +1,15 @@
+[package]
+name = "gpp-bevy-example"
+version = "0.1.0"
+edition = "2024"
+
+# DEPENDENCIES
+[dependencies]
+bevy = { version = "*", default-features = false, features = ["2d", "dynamic_linking"] }
+log = { version = "*", features = ["max_level_debug", "release_max_level_warn"] }
+rand = { version = "*" }
+
+# BINARIES
+[[bin]]
+name = "avoidance-steering"
+path = "src/bin/avoidance_steering/main.rs"
