@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bevy Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        canvas {
+            border: 2px solid #444;
+            background-color: #000;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+
+        .info {
+            color: #888;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .info a {
+            color: #4a9eff;
+            text-decoration: none;
+        }
+
+        .info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="1280" height="720"></canvas>
+
+    <!-- Load the WASM module -->
+    <script type="module">
+        import run from './module.js';
+
+        try {
+            await run();
+        } catch (e) {
+            console.error('Failed to initialize game:', e);
+            document.body.innerHTML = '<p style="color: red; margin-top: 50px;">Failed to load game. Check console for errors.</p>';
+        }
+
+    </script>
+</body>
+</html>

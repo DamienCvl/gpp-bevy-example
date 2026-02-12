@@ -5,9 +5,19 @@ edition = "2024"
 
 # DEPENDENCIES
 [dependencies]
-bevy = { version = "*", default-features = false, features = ["2d", "dynamic_linking"] }
+bevy = { version = "*", default-features = false, features = ["2d"] }
 log = { version = "*", features = ["max_level_debug", "release_max_level_warn"] }
 rand = { version = "*" }
+
+# Platform-specific dependencies
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+bevy = { version = "*", default-features = false, features = ["2d", "dynamic_linking"] }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "*"
+web-sys = { version = "*", features = ["Window", "Document", "HtmlCanvasElement", "CanvasRenderingContext2d", "Performance"] }
+wasm-logger = "*"
+getrandom = { version = "*", features = ["wasm_js"] }
 
 # BINARIES
 [[bin]]

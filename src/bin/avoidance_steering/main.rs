@@ -3,9 +3,13 @@ use bevy::prelude::*;
 use crate::{
     components::{Mover, Obstacle, Target},
     systems::{
-        apply_movement_system, avoidance_system, goto_target_system, target_reached_system, wall_collision_system
+        apply_movement_system, avoidance_system, goto_target_system, target_reached_system,
+        wall_collision_system,
     },
 };
+
+#[cfg(target_arch = "wasm32")]
+use wasm_bindgen::prelude::*;
 
 mod components;
 mod systems;
@@ -22,9 +26,30 @@ mod constants {
     pub const WALL_PADDING: f32 = 20.0;
 }
 
-fn main() {
+pub fn main() {
+    run();
+}
+
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen(start))]
+pub fn run() {
+    #[cfg(target_arch = "wasm32")]
+    wasm_logger::init(wasm_logger::Config::default().module_prefix("avoidance_steering"));
+
+    #[cfg(target_arch = "wasm32")]
+    let default_plugins = DefaultPlugins.set(WindowPlugin {
+        primary_window: Some(Window {
+            canvas: Some("#canvas".to_string()),
+            resolution: (1280, 720).into(),
+            ..default()
+        }),
+        ..default()
+    });
+
+    #[cfg(not(target_arch = "wasm32"))]
+    let default_plugins = DefaultPlugins;
+
     App::new()
-        .add_plugins(DefaultPlugins)
+        .add_plugins(default_plugins)
         .add_systems(Startup, setup)
         .add_systems(
             Update,
