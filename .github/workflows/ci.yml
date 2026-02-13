@@ -16,6 +16,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Install system dependencies
+      - name: Install system dependencies
+        run: sudo apt-get install -y libwayland-dev
+
       # Install Rust toolchain
       - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
