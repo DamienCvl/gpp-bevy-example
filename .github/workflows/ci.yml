@@ -21,6 +21,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: nightly
+          components: rustfmt, clippy
 
       # Install wasm32 target
       - name: Install wasm32 target
