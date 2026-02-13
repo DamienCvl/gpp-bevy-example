@@ -1,5 +1,7 @@
 use bevy::{
-    ecs::{query::With, system::Query}, math::Vec3Swizzles, transform::components::Transform
+    ecs::{query::With, system::Query},
+    math::Vec3Swizzles,
+    transform::components::Transform,
 };
 
 use crate::{
